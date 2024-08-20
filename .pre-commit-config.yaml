@@ -1,0 +1,53 @@
+repos:
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v3.1.0
+  #   hooks:
+  #     - id: check-byte-order-marker
+  #     - id: check-case-conflict
+  #     - id: check-merge-conflict
+  #     - id: check-symlinks
+  #     - id: check-yaml
+  #     - id: end-of-file-fixer
+  #     - id: mixed-line-ending
+  #       args: ["--fix", "no"]
+  #     - id: trailing-whitespace
+
+  # - repo: https://github.com/DevinR528/cargo-sort
+  #   rev: e6a795bc6b2c0958f9ef52af4863bbd7cc17238f
+  #   hooks:
+  #     - id: cargo-sort
+  #       args: ["--workspace"]
+
+  - repo: local
+    hooks:
+      - id: fmt
+        name: cargo fmt
+        description: Format files with cargo fmt.
+        entry: cargo +nightly fmt --all
+        language: system
+        types: [rust]
+        args: ["--"]
+        exclude: "^templates/"
+
+  - repo: https://github.com/doublify/pre-commit-rust
+    rev: v1.0
+    hooks:
+      - id: clippy
+        args:
+          [
+            "--workspace",
+            "--all-targets",
+            "--all-features",
+            "--",
+            "-D",
+            "warnings",
+          ]
+        stages: [pre-commit, push]
+      - id: cargo-check
+        args: ["--workspace", "--all-targets", "--all-features"]

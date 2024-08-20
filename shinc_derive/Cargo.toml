@@ -1,0 +1,21 @@
+[package]
+name = "shinc_derive"
+version = "1.0.0"
+description = "Generate a bash cli script using `argc`."
+repository = "https://github.com/druagoon/shinc-rs/tree/master/shinc_derive"
+categories = [
+    "command-line-interface",
+    "development-tools::procedural-macro-helpers",
+]
+keywords = ["shinc", "cli", "parse", "derive", "proc_macro"]
+license.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+syn = { version = "2.0.75", features = ["extra-traits"] }

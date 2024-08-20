@@ -1,0 +1,34 @@
+[workspace]
+resolver = "2"
+members = ["shinc_derive"]
+
+[workspace.package]
+license = "MIT"
+edition = "2021"
+
+[package]
+name = "shinc"
+version = "0.1.0"
+description = "Generate a bash cli script using `argc`."
+repository = "https://github.com/druagoon/shinc-rs"
+edition.workspace = true
+license.workspace = true
+categories = ["command-line-interface"]
+keywords = ["shinc", "cli", "bash"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+anyhow = "1.0.86"
+clap = { version = "4.5.16", features = ["cargo", "derive", "env"] }
+clap-verbosity-flag = "2.2.1"
+clap_complete = "4.5.19"
+config = "0.14.0"
+env_logger = "0.11.5"
+log = "0.4.22"
+once_cell = "1.19.0"
+serde = { version = "1.0.208", features = ["derive"] }
+serde_json = "1.0.125"
+serde_yaml = "0.9.34"
+shellexpand = "3.1.0"
+shinc_derive = { path = "./shinc_derive" }
+toml = { version = "0.8.19", features = ["preserve_order"] }
