@@ -8,21 +8,15 @@ SHELL := bash
 clean: ## Clean project
 	cargo clean
 
-.PHONY: purge
-purge: clean ## Purge project (clean and then remove the target folder if exists)
-	@if [[ -d ./target ]]; then \
-		rm -rf ./target; \
-	fi
-
 ##@ Dependencies
 
 .PHONY: check-deps
 check-deps: ## Check unused dependencies
-	@cargo machete
+	@cargo shear
 
 .PHONY: fix-deps
 fix-deps: ## Check and remove unused dependencies
-	@cargo machete --fix
+	@cargo shear --fix
 
 ##@ Lint & Format
 

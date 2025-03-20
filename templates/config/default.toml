@@ -1,4 +1,24 @@
 [project]
 name = ""
 version = ""
-include = ["bin", "contrib", "share", "LICENSE", "README.md"]
+# description = ""
+# homepage = ""
+# repository = ""
+# license = "MIT"
+
+# [[bin]]
+# name = ""
+# path = "src/main.sh"
+
+# [build]
+# target_dir = "target"
+
+[dist]
+# name = ""
+include_extra = ["LICENSE", "README.md"]
+
+[tools.shfmt]
+options = ["-ln", "auto", "-i", "4", "-ci", "-bn", "-w"]
+
+[release]
+changelog = "CHANGELOG.md"

@@ -1,4 +1,7 @@
+use std::io;
+
 use clap::{CommandFactory, Parser};
+use clap_complete::aot::{Generator, Shell};
 
 use crate::commands::Command;
 use crate::error::CliResult;
@@ -13,6 +16,8 @@ pub trait CliCommand {
 pub struct Cli {
     #[command(subcommand)]
     command: Option<Command>,
+    #[arg(long, value_name = "SHELL", value_enum)]
+    generate_shell_completions: Option<Shell>,
     #[command(flatten)]
     verbose: clap_verbosity_flag::Verbosity,
 }
@@ -29,6 +34,7 @@ impl Cli {
     /// See also [`clap::Command::build`]
     ///
     /// can be used for completions.
+    #[allow(dead_code)]
     pub fn build() -> clap::Command {
         let mut cmd = Self::command();
         cmd.build();
@@ -53,7 +59,12 @@ impl CliCommand for Cli {
         match &self.command {
             Some(cmd) => cmd.run(),
             None => {
-                Self::command().print_long_help()?;
+                if let Some(shell) = self.generate_shell_completions {
+                    let cmd = crate::cli::Cli::build();
+                    shell.generate(&cmd, &mut io::stdout());
+                } else {
+                    Self::command().print_long_help()?;
+                }
                 Ok(())
             }
         }

@@ -4,7 +4,7 @@ mod show;
 
 use crate::prelude::*;
 
-/// Manage local and global configuration.
+/// Manage configurations.
 #[derive(clap::Subcommand, shinc_derive::CliCommand, Debug)]
 pub enum ConfigCmd {
     Generate(generate::ConfigGenerateCmd),

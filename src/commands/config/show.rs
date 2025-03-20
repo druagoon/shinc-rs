@@ -30,7 +30,7 @@ impl ConfigShowCmd {
     }
 
     fn render_toml(&self, c: &Config) -> anyhow::Result<String> {
-        Ok(toml::to_string_pretty(c)?)
+        Ok(toml_edit::ser::to_string_pretty(c)?)
     }
 }
 
@@ -44,7 +44,8 @@ impl CliCommand for ConfigShowCmd {
         } else {
             self.render_toml(c)?
         };
-        println!("{output}");
+        println!("{}", output.trim());
+
         Ok(())
     }
 }

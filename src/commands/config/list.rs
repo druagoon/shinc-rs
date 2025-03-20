@@ -15,7 +15,7 @@ pub struct ConfigListCmd {
 impl CliCommand for ConfigListCmd {
     fn run(&self) -> CliResult {
         let mut i = 0;
-        let files = Config::locate_config_paths();
+        let files = [Config::locate_config_path(std::env::current_dir().unwrap())];
         for f in files {
             if !self.exists || f.exists() {
                 i += 1;
@@ -26,6 +26,7 @@ impl CliCommand for ConfigListCmd {
                 println!("{}\n", content.trim());
             }
         }
+
         Ok(())
     }
 }

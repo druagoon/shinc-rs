@@ -1,0 +1,5 @@
+allow-branch = ["master"]
+publish = false
+shared-version = true
+pre-release-commit-message = "chore: Release shinc {{version}}"
+pre-release-hook = ["./scripts/pre-release-hook.sh"]
