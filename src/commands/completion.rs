@@ -1,6 +1,6 @@
 use std::io;
 
-use clap_complete::{Generator, Shell};
+use clap_complete::aot::{Generator, Shell};
 
 use crate::prelude::*;
 
