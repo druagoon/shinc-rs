@@ -2,12 +2,21 @@ use std::path::{Path, PathBuf};
 
 use once_cell::sync::Lazy;
 
-use crate::consts::{CONFIG_DIR, PROJECT_DOT_ID};
 use crate::include_template;
+use crate::utils::path::expand_tilde;
 
+/// The default configuration template.
 pub const DEFAULT_CONFIG: &str = include_template!("config/default.toml");
 
-const CONFIG_FILENAME: &str = "config.toml";
+/// The sub-directory where local or user configuration files are stored.
+pub const CONFIG_SUBDIR: &str = concat!(".config/", clap::crate_name!());
+/// The name of the configuration file.
+pub const CONFIG_FILENAME: &str = "config.toml";
+/// The directory where user configuration files are stored.
+pub static USER_CONFIG_DIR: Lazy<PathBuf> = Lazy::new(|| {
+    let home = expand_tilde("~");
+    home.join(CONFIG_SUBDIR)
+});
 
 #[derive(serde::Deserialize, serde::Serialize, Debug)]
 pub struct Config {}
@@ -15,7 +24,7 @@ pub struct Config {}
 impl Config {
     pub fn new() -> anyhow::Result<Self> {
         let sources = vec![::config::File::from_str(DEFAULT_CONFIG, ::config::FileFormat::Toml)];
-        let files: Vec<_> = Self::locate_config_files()
+        let files: Vec<_> = Self::locate_config_paths()
             .iter()
             .rev()
             .filter(|&x| x.exists())
@@ -29,30 +38,32 @@ impl Config {
         Ok(cfg)
     }
 
-    fn _get_local_file<T: AsRef<Path>>(p: T) -> PathBuf {
-        std::env::current_dir().unwrap().join(PROJECT_DOT_ID).join(p)
+    /// Resolve the path of configuration file that stored in `current_dir`.
+    fn resolve_local_path<T: AsRef<Path>>(p: T) -> PathBuf {
+        std::env::current_dir().unwrap().join(CONFIG_SUBDIR).join(p)
     }
 
-    fn _get_user_file<T: AsRef<Path>>(p: T) -> PathBuf {
-        CONFIG_DIR.join(p)
+    /// Resolve the path of configuration file that stored in `USER_CONFIG_DIR`.
+    fn resolve_user_path<T: AsRef<Path>>(p: T) -> PathBuf {
+        USER_CONFIG_DIR.join(p)
     }
 
-    pub fn locate_config_files() -> Vec<PathBuf> {
-        vec![Self::get_local_config_file(), Self::get_user_config_file()]
+    pub fn local_config_path() -> PathBuf {
+        Self::resolve_local_path(CONFIG_FILENAME)
     }
 
-    pub fn get_local_config_file() -> PathBuf {
-        Self::_get_local_file(CONFIG_FILENAME)
+    pub fn user_config_path() -> PathBuf {
+        Self::resolve_user_path(CONFIG_FILENAME)
     }
 
-    pub fn get_user_config_file() -> PathBuf {
-        Self::_get_user_file(CONFIG_FILENAME)
+    pub fn locate_config_paths() -> Vec<PathBuf> {
+        vec![Self::local_config_path(), Self::user_config_path()]
     }
 
     #[allow(dead_code)]
-    pub fn locate_template_files<T: AsRef<Path>>(p: T) -> Vec<PathBuf> {
+    pub fn locate_template_paths<T: AsRef<Path>>(p: T) -> Vec<PathBuf> {
         let suffix = Path::new("templates").join(p);
-        vec![Self::_get_local_file(&suffix), Self::_get_user_file(&suffix)]
+        vec![Self::resolve_local_path(&suffix), Self::resolve_user_path(&suffix)]
     }
 }
 

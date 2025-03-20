@@ -1,6 +1,4 @@
 [project]
 name = ""
 version = ""
-brief = ""
-description = ""
-repository = ""
+include = ["bin", "contrib", "share", "LICENSE", "README.md"]

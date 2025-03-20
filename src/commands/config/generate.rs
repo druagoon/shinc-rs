@@ -18,9 +18,9 @@ pub struct ConfigGenerateCmd {
 impl ConfigGenerateCmd {
     fn get_config_file_path(&self) -> PathBuf {
         if self.local {
-            Config::get_local_config_file()
+            Config::local_config_path()
         } else {
-            Config::get_user_config_file()
+            Config::user_config_path()
         }
     }
 }
@@ -32,7 +32,7 @@ impl CliCommand for ConfigGenerateCmd {
             if cf.exists() {
                 let to = cf.with_extension("bak");
                 fs::copy(&cf, &to)?;
-                println!("backup config file: {} => {}", cf.to_str().unwrap(), to.to_str().unwrap())
+                println!("backup config file: {} => {}", cf.display(), to.display());
             }
             let cf_dir = cf.parent().unwrap();
             if !cf_dir.exists() {
@@ -40,7 +40,7 @@ impl CliCommand for ConfigGenerateCmd {
             }
             fs::write(cf, DEFAULT_CONFIG)?;
         } else {
-            println!("config file already exists: {}", cf.to_str().unwrap())
+            println!("config file already exists: {}", cf.display())
         }
         Ok(())
     }
