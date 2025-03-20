@@ -1,5 +1,5 @@
-version = "Two"
 edition = "2021"
+style_edition = "2021"
 condense_wildcard_suffixes = true
 error_on_line_overflow = true
 error_on_unformatted = true

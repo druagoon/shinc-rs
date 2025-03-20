@@ -17,7 +17,11 @@ pub struct ConfigGenerateCmd {
 
 impl ConfigGenerateCmd {
     fn get_config_file_path(&self) -> PathBuf {
-        if self.local { Config::get_local_config_file() } else { Config::get_user_config_file() }
+        if self.local {
+            Config::get_local_config_file()
+        } else {
+            Config::get_user_config_file()
+        }
     }
 }
 
