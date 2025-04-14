@@ -2899,7 +2899,7 @@ dependencies = [
 
 [[package]]
 name = "shinc"
-version = "0.0.1"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "argc",
@@ -2935,7 +2935,7 @@ dependencies = [
 
 [[package]]
 name = "shinc_derive"
-version = "0.0.1"
+version = "1.0.0"
 dependencies = [
  "proc-macro2",
  "quote",

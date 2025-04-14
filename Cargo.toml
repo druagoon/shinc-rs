@@ -8,7 +8,7 @@ edition = "2021"
 
 [package]
 name = "shinc"
-version = "0.0.1"
+version = "1.0.0"
 description = "Generate a bash cli script using argc"
 repository = "https://github.com/druagoon/shinc-rs"
 edition.workspace = true
@@ -58,7 +58,7 @@ serde_json = "1.0.140"
 serde_yaml = "0.9.34"
 sha2 = "0.10.8"
 shellexpand = "3.1.0"
-shinc_derive = { version = "0.0.1", path = "./shinc_derive" }
+shinc_derive = { version = "1.0.0", path = "./shinc_derive" }
 tar = "0.4.44"
 tera = "1.20.0"
 toml_edit = { version = "0.22.24", features = ["serde"] }
