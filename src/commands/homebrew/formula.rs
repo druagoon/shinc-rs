@@ -42,7 +42,7 @@ impl HomebrewFormulaCmd {
         if let Some(r) = repository {
             let url = self.url(r, name, version);
             let checksum = calculate_url_sha256(&url).unwrap_or_else(|e| {
-                log::error!("Failed to calculate sha256 for '{}': {}", url, e);
+                log::error!("Failed to calculate sha256 for '{url}': {e}");
                 String::new()
             });
             (url, checksum)
@@ -52,7 +52,7 @@ impl HomebrewFormulaCmd {
     }
 
     fn formula_file(&self, name: &str) -> Option<PathBuf> {
-        self.output_dir.as_ref().map(|x| x.join(format!("{}.rb", name)))
+        self.output_dir.as_ref().map(|x| x.join(format!("{name}.rb")))
     }
 
     fn render_formula(&self, name: &str, ctx: &mut tera::Context) -> anyhow::Result<()> {

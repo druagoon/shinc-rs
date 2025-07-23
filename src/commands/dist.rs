@@ -32,7 +32,7 @@ impl CliCommand for DistCmd {
         tips::h1("Generating sha256sum");
         println!("{}", checksum_file.display());
         let mut fp = create_file(&checksum_file)?;
-        writeln!(fp, "{} {}", checksum, filename)?;
+        writeln!(fp, "{checksum} {filename}")?;
 
         Ok(())
     }

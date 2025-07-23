@@ -115,7 +115,7 @@ impl Config {
             .build()?
             .try_deserialize::<Self>()?;
         cfg.root = root.as_ref().to_path_buf();
-        log::debug!("{:#?}", cfg);
+        log::debug!("{cfg:#?}");
         Ok(cfg)
     }
 
@@ -264,7 +264,7 @@ impl Config {
 pub static CONFIG: Lazy<Config> = Lazy::new(|| match Config::with_local() {
     Ok(cfg) => cfg,
     Err(e) => {
-        eprintln!("load config failed: {}", e);
+        eprintln!("load config failed: {e}");
         std::process::exit(1);
     }
 });

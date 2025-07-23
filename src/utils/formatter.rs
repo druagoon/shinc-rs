@@ -45,7 +45,7 @@ impl Formatter {
     }
 
     pub fn label(self, label: &str) -> Self {
-        self.prefix(&format!("{}:", label))
+        self.prefix(&format!("{label}:"))
     }
 
     pub fn success(self, label: &str) -> Self {
@@ -68,11 +68,11 @@ impl Display for Formatter {
         let text = self.text.as_deref().unwrap_or("");
         let r = match (prefix, self.color) {
             ("", Some(c)) => format!("{}{}", indent, text.color(c)),
-            ("", None) => format!("{}{}", indent, text),
+            ("", None) => format!("{indent}{text}"),
             (_, Some(c)) => format!("{}{} {}", indent, prefix.color(c), text),
-            (_, None) => format!("{}{} {}", indent, prefix, text),
+            (_, None) => format!("{indent}{prefix} {text}"),
         };
-        write!(f, "{}", r)
+        write!(f, "{r}")
     }
 }
 

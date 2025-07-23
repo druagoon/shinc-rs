@@ -110,7 +110,7 @@ mod tests {
         let temp_dir = std::env::temp_dir();
         let temp_file = temp_dir.join("test_file.txt");
         let mut file = File::create(&temp_file).unwrap();
-        writeln!(file, "{}", content).unwrap();
+        writeln!(file, "{content}").unwrap();
         temp_file
     }
 

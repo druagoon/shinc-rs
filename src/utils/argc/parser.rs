@@ -90,7 +90,7 @@ fn parse_tag_meta(input: &str) -> nom::IResult<&str, Option<EventData>> {
 }
 
 fn parse_tag_unknown(input: &str) -> nom::IResult<&str, Option<EventData>> {
-    map(rest, |v: &str| Some(EventData::Unknown(format!("# @{}", v)))).parse(input)
+    map(rest, |v: &str| Some(EventData::Unknown(format!("# @{v}")))).parse(input)
 }
 
 fn parse_key_value(input: &str) -> nom::IResult<&str, Option<(&str, &str)>> {

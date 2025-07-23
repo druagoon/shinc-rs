@@ -26,7 +26,7 @@ impl Cli {
     pub fn exec() {
         let cli = Self::parse();
         if let Err(e) = cli.run() {
-            eprintln!("{:?}", e);
+            eprintln!("{e:?}");
             ::std::process::exit(1);
         }
     }
@@ -49,7 +49,7 @@ impl Cli {
     fn init_logging(&self) {
         let level = self.verbose.log_level_filter();
         env_logger::Builder::new().filter_level(level).init();
-        log::debug!("initialize logging system at log level: {}", level);
+        log::debug!("initialize logging system at log level: {level}");
     }
 }
 

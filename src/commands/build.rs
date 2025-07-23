@@ -45,7 +45,7 @@ impl BuildFile {
     }
 
     fn writeln(&mut self, buf: &str) -> anyhow::Result<()> {
-        Ok(writeln!(self.inner, "{}", buf)?)
+        Ok(writeln!(self.inner, "{buf}")?)
     }
 
     fn write_newline(&mut self) -> anyhow::Result<()> {
@@ -67,7 +67,7 @@ impl BuildFile {
         filename: &str,
         path: P,
     ) -> anyhow::Result<()> {
-        self.writeln(&format!("# {}", filename))?;
+        self.writeln(&format!("# {filename}"))?;
         for line in read_lines(path)? {
             self.writeln(&line?)?;
         }
@@ -117,7 +117,7 @@ fn fmt_shell<P: AsRef<Path>>(p: P) {
                 }
             }
             Err(err) => {
-                eprintln!("failed to execute shfmt: {}", err);
+                eprintln!("failed to execute shfmt: {err}");
             }
         }
     } else {
@@ -131,7 +131,7 @@ fn build(bin: &Bin) -> CliResult {
 
     let src = bin.path();
     check_file(src)?;
-    let dst = CONFIG.build_file(&format!("{}.sh", bin_name));
+    let dst = CONFIG.build_file(&format!("{bin_name}.sh"));
     let mut bf = BuildFile::new(create_file(&dst)?);
     tips::h1("Compiling source");
     println!("{} -> {}", src.display(), dst.display());
@@ -143,7 +143,7 @@ fn build(bin: &Bin) -> CliResult {
             EventData::Include(filename) => {
                 let filepath = CONFIG.resolve_src_path(filename);
                 check_file(&filepath)?;
-                log::debug!("write include file: {}", filename);
+                log::debug!("write include file: {filename}");
                 bf.write_include_file(filename, filepath)?;
             }
             EventData::Meta(key, value) => {

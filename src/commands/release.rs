@@ -79,7 +79,7 @@ impl CliCommand for ReleaseCmd {
         quit_if(self.no_push);
         tips::h1("Pushing commits and tag");
         let output = push_branch_and_tag(current_dir, &self.remote_name, &branch, &tag)?;
-        println!("{}", output);
+        println!("{output}");
 
         Ok(())
     }
@@ -88,7 +88,7 @@ impl CliCommand for ReleaseCmd {
 fn update_changelog(output: &str, tag_name: &str) -> anyhow::Result<()> {
     let args = ["git-cliff", "--tag", tag_name, "--output", output];
     let opts = git_cliff::args::Opt::try_parse_from(args)?;
-    log::debug!("git-cliff opts: {:#?}", opts);
+    log::debug!("git-cliff opts: {opts:#?}");
     git_cliff::run(opts)?;
     Ok(())
 }
