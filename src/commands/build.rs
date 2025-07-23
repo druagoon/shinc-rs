@@ -1,10 +1,8 @@
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
 
 use anyhow::Context;
-use which::which;
 
 use crate::config::Bin;
 use crate::prelude::*;
@@ -12,6 +10,7 @@ use crate::utils::argc::parser::{parse, EventData};
 use crate::utils::argc::tag::ArgcTag;
 use crate::utils::formatter::identifier;
 use crate::utils::fs::{create_file, read_lines, set_executable};
+use crate::utils::shell::fmt_shell;
 use crate::utils::tips;
 
 /// Generate and build shell scripts.
@@ -99,32 +98,6 @@ fn check_file<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn fmt_shell<P: AsRef<Path>>(p: P) {
-    if let Ok(cmd) = which("shfmt") {
-        let output = Command::new(cmd)
-            .args(CONFIG.shfmt_options())
-            .arg(p.as_ref())
-            .stderr(Stdio::piped())
-            .output();
-
-        match output {
-            Ok(output) => {
-                if !output.status.success() {
-                    eprintln!(
-                        "shfmt failed with error:\n{}",
-                        String::from_utf8_lossy(&output.stderr)
-                    );
-                }
-            }
-            Err(err) => {
-                eprintln!("failed to execute shfmt: {err}");
-            }
-        }
-    } else {
-        log::warn!("shfmt is not installed or not in PATH.");
-    }
-}
-
 fn build(bin: &Bin) -> CliResult {
     let bin_name = bin.name();
     tips::title(&format!("Building {}", identifier(bin_name)));
@@ -160,7 +133,7 @@ fn build(bin: &Bin) -> CliResult {
     }
     bf.write_argc_hook()?;
     bf.flush()?;
-    fmt_shell(&dst);
+    fmt_shell(&dst)?;
 
     // Build scripts without `argc` dependency
     let target = CONFIG.bin_file(bin_name);
@@ -171,7 +144,7 @@ fn build(bin: &Bin) -> CliResult {
     create_file(&target)?
         .write_all(content.as_bytes())
         .with_context(|| format!("failed to write script to '{}'", target.display()))?;
-    fmt_shell(&target);
+    fmt_shell(&target)?;
     set_executable(&target)
         .with_context(|| format!("failed to set execute permission to '{}'", target.display()))?;
 

@@ -4,6 +4,7 @@ pub mod fs;
 pub mod hashlib;
 pub mod path;
 pub mod process;
+pub mod shell;
 pub mod terminal;
 pub mod tips;
 pub mod vcs;

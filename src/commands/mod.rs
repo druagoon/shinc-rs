@@ -4,6 +4,7 @@ mod completions;
 mod config;
 mod dist;
 mod homebrew;
+mod install_shell;
 mod man;
 mod release;
 
@@ -20,6 +21,7 @@ pub enum Command {
     Dist(dist::DistCmd),
     #[command(subcommand)]
     Homebrew(homebrew::HomebrewCmd),
+    InstallShell(install_shell::InstallShellCmd),
     Man(man::ManCmd),
     Release(release::ReleaseCmd),
 }
