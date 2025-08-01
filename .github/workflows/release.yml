@@ -51,16 +51,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # bump-homebrew-formula:
-  #   needs: upload-assets
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Update Homebrew formula
-  #       uses: dawidd6/action-homebrew-bump-formula@v4
-  #       with:
-  #         token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
-  #         no_fork: true
-  #         tap: druagoon/homebrew-brew
-  #         formula: shinc
-  #         user_name: github-actions[bot]
-  #         user_email: 41898282+github-actions[bot]@users.noreply.github.com
+  bump-homebrew-formula:
+    needs: upload-assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v4
+        with:
+          token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          no_fork: true
+          tap: druagoon/homebrew-brew
+          formula: shinc
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
