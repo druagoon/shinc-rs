@@ -93,7 +93,7 @@ fn ensure_path<P: AsRef<Path>>(path: P) -> anyhow::Result<PathBuf> {
 fn check_file<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     let p = path.as_ref();
     if !p.exists() {
-        anyhow::bail!("file not found: {:?}", p);
+        anyhow::bail!("file not found: {p:?}");
     }
     Ok(())
 }

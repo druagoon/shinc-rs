@@ -41,14 +41,14 @@ pub fn parse(source: &str) -> anyhow::Result<Vec<Event>> {
                     if let Some(data) = maybe_data {
                         result.push(Event { position, data });
                     } else {
-                        anyhow::bail!("syntax error at line {}", position);
+                        anyhow::bail!("syntax error at line {position}");
                     }
                 } else {
                     result.push(Event { position, data: EventData::Unknown(line.to_string()) });
                 }
             }
             Err(err) => {
-                anyhow::bail!("fail to parse at line {}, {}", position, err);
+                anyhow::bail!("fail to parse at line {position}, {err}");
             }
         }
         line_idx += 1;

@@ -5,6 +5,7 @@ members = ["shinc_derive"]
 [workspace.package]
 license = "MIT"
 edition = "2021"
+rust-version = "1.97.1"
 
 [package]
 name = "shinc"
@@ -18,8 +19,8 @@ keywords = ["shinc", "cli", "bash"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-anyhow = "1.0.98"
-argc = { version = "1.22.0", default-features = false, features = [
+anyhow = "1.0.104"
+argc = { version = "1.24.0", default-features = false, features = [
     "build",
     "compgen",
     "completions",
@@ -34,36 +35,37 @@ argc = { version = "1.22.0", default-features = false, features = [
     "path-absolutize",
     "threadpool",
 ] }
-clap = { version = "4.5.36", features = ["cargo", "derive", "env"] }
-clap-verbosity-flag = "3.0.2"
-clap_complete = "4.5.47"
-colored = "3.0.0"
-config = "0.15.11"
-dialoguer = "0.11.0"
-env_logger = "0.11.8"
-flate2 = "1.1.1"
-git-cliff = "2.8.0"
-git2 = { version = "0.20.1", features = ["vendored-openssl"] }
+clap = { version = "4.6.4", features = ["cargo", "derive", "env"] }
+clap-verbosity-flag = "3.0.4"
+clap_complete = "4.6.7"
+colored = "3.1.1"
+config = "0.15.25"
+dialoguer = "0.12.0"
+env_logger = "0.11.11"
+flate2 = "1.1.9"
+git-cliff = "2.13.1"
+git2 = { version = "0.21.0", features = ["vendored-openssl"] }
 heck = "0.5.0"
-log = "0.4.27"
+hex = "0.4.3"
+log = "0.4.33"
 nom = "8.0.0"
-once_cell = "1.21.3"
-reqwest = { version = "0.12.15", features = [
+once_cell = "1.21.4"
+reqwest = { version = "0.13.4", features = [
     "blocking",
     "native-tls-vendored",
 ] }
-semver = "1.0.26"
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.140"
+semver = "1.0.28"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
 serde_yaml = "0.9.34"
-sha2 = "0.10.8"
-shellexpand = "3.1.0"
+sha2 = "0.11.0"
+shellexpand = "3.1.2"
 shinc_derive = { version = "1.1.0", path = "./shinc_derive" }
-tar = "0.4.44"
-tera = "1.20.0"
-toml_edit = { version = "0.22.24", features = ["serde"] }
-url = { version = "2.5.4", features = ["serde"] }
-which = "7.0.3"
+tar = "0.4.46"
+tera = "2.1.0"
+toml_edit = { version = "0.25.13", features = ["serde"] }
+url = { version = "2.5.8", features = ["serde"] }
+which = "8.0.5"
 
 [dev-dependencies]
 dirs = "6.0.0"

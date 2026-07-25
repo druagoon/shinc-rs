@@ -36,7 +36,7 @@ impl<R: Read> Sha256Hasher<R> {
     }
 
     pub fn hex(self) -> anyhow::Result<String> {
-        Ok(format!("{:x}", self.calculate()?))
+        Ok(hex::encode(self.calculate()?))
     }
 }
 
