@@ -1,10 +1,10 @@
+use nom::Parser;
 use nom::branch::alt;
 use nom::bytes::complete::{tag, take_while1};
 use nom::character::complete::{char, space0, space1};
 use nom::combinator::{eof, map, rest, success};
 use nom::multi::many1;
 use nom::sequence::{pair, preceded};
-use nom::Parser;
 
 use super::tag as argc_tag;
 

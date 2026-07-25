@@ -1,10 +1,10 @@
 [workspace]
-resolver = "2"
+resolver = "3"
 members = ["shinc_derive"]
 
 [workspace.package]
 license = "MIT"
-edition = "2021"
+edition = "2024"
 rust-version = "1.97.1"
 
 [package]

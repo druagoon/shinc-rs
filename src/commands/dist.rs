@@ -1,8 +1,8 @@
 use std::io::Write;
 use std::path::Path;
 
-use flate2::write::GzEncoder;
 use flate2::Compression;
+use flate2::write::GzEncoder;
 use tar::Builder;
 
 use crate::prelude::*;

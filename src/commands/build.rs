@@ -6,7 +6,7 @@ use anyhow::Context;
 
 use crate::config::Bin;
 use crate::prelude::*;
-use crate::utils::argc::parser::{parse, EventData};
+use crate::utils::argc::parser::{EventData, parse};
 use crate::utils::argc::tag::ArgcTag;
 use crate::utils::formatter::identifier;
 use crate::utils::fs::{create_file, read_lines, set_executable};

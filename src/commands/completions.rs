@@ -4,8 +4,8 @@ use std::str::FromStr;
 
 use anyhow::Context;
 use clap::ValueEnum;
-use clap_complete::aot::Shell;
 use clap_complete::Generator;
+use clap_complete::aot::Shell;
 
 use crate::config::Bin;
 use crate::prelude::*;
